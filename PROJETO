@@ -1,0 +1,28 @@
+class Produto:
+    def __init__(self, nome, descricao, preco):
+        self.nome = nome
+        self.descricao = descricao
+        self.preco = preco
+
+
+class SistemaProdutos:
+    def __init__(self):
+        self.produtos = []
+
+    def adicionar_produto(self):
+        nome = input("Escreva o nome do produto: ")
+        descricao = input("Escreva a descrição do produto: ")
+        preco = float(input("Escreva o preço do produto: "))
+
+        produto = Produto(nome, descricao, preco)
+        self.produtos.append(produto)
+        print("Produto adicionado com sucesso!")
+
+    def exibir_produtos(self):
+        for produto in self.produtos:
+            print(f"Nome: {produto.nome}")
+            print(f"Descrição: {produto.descricao}")
+            print(f"Preço: {produto.preco}")
+            print()
+
+
