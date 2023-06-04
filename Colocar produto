@@ -1,28 +1,113 @@
-class Produto:
-    def __init__(self, nome, descricao, preco):
-        self.nome = nome
-        self.descricao = descricao
-        self.preco = preco
-
-
 class SistemaProdutos:
-    def __init__(self):
-        self.produtos = []
 
-    def adicionar_produto(self):
-        nome = input("Digite o nome do produto: ")
-        descricao = input("Digite a descrição do produto: ")
-        preco = float(input("Digite o preço do produto: "))
+  def __init__(self):
+    self.produtos = []
 
-        produto = Produto(nome, descricao, preco)
-        self.produtos.append(produto)
-        print("Produto adicionado com sucesso!")
+  def adicionar_produto(self, nome, descricao, preco):
+    produto = Produto(nome, descricao, preco)
+    self.produtos.append(produto)
 
-    def exibir_produtos(self):
-        for produto in self.produtos:
-            print(f"Nome: {produto.nome}")
-            print(f"Descrição: {produto.descricao}")
-            print(f"Preço: {produto.preco}")
-            print()
+  def deletar_produto(self, nome):
+    produtos_removidos = []
+    for produto in self.produtos:
+      if produto.nome == nome:
+        produtos_removidos.append(produto)
+
+    if len(produtos_removidos) > 0:
+      self.produtos = [p for p in self.produtos if p not in produtos_removidos]
+      print("Produto(s) removido(s) com sucesso!")
+    else:
+      print("Nenhum produto encontrado com o nome fornecido.")
+
+  def fazer_update_produto(self, nome, nova_descricao, novo_preco):
+    for produto in self.produtos:
+      if produto.nome == nome:
+        produto.descricao = nova_descricao
+        produto.preco = novo_preco
+        print("Produto atualizado com sucesso!")
+        return
+
+    print("Nenhum produto encontrado com o nome fornecido.")
+
+  def listar_produtos(self):
+    if len(self.produtos) > 0:
+      print("Produtos:")
+      for produto in self.produtos:
+        print(
+          f"Nome: {produto.nome}, Descrição: {produto.descricao}, Preço: {produto.preco}"
+        )
+    else:
+      print("Não há produtos cadastrados.")
+
+  def consultar_produto(self, nome):
+    for produto in self.produtos:
+      if produto.nome == nome:
+        print(
+          f"Nome: {produto.nome}, Descrição: {produto.descricao}, Preço: {produto.preco}"
+        )
+        return
+
+    print("Nenhum produto encontrado com o nome fornecido.")
 
 
+class Produto:
+
+  def __init__(self, nome, descricao, preco):
+    self.nome = nome
+    self.descricao = descricao
+    self.preco = preco
+
+
+def exibir_menu():
+  print("===== Menu =====")
+  print("1. Adicionar produto")
+  print("2. Deletar produto")
+  print("3. Fazer update do produto")
+  print("4. Listar todos os produtos")
+  print("5. Consultar um produto")
+  print("0. Sair")
+
+
+def executar_programa():
+  sistema = SistemaProdutos()
+
+  while True:
+    exibir_menu()
+    opcao = input("Digite a opção desejada: ")
+
+    if opcao == "1":
+      nome = input("Digite o nome do produto: ")
+      descricao = input("Digite a descrição do produto: ")
+      preco = float(input("Digite o preço do produto: "))
+
+      sistema.adicionar_produto(nome, descricao, preco)
+      print("Produto adicionado com sucesso!")
+
+    elif opcao == "2":
+      nome = input("Digite o nome do produto a ser removido: ")
+      sistema.deletar_produto(nome)
+
+    elif opcao == "3":
+      nome = input("Digite o nome do produto a ser atualizado: ")
+      nova_descricao = input("Digite a nova descrição do produto: ")
+      novo_preco = float(input("Digite o novo preço do produto: "))
+
+      sistema.fazer_update_produto(nome, nova_descricao, novo_preco)
+
+    elif opcao == "4":
+      sistema.listar_produtos()
+
+    elif opcao == "5":
+      nome = input("Digite o nome do produto a ser consultado: ")
+      sistema.consultar_produto(nome)
+
+    elif opcao == "0":
+      print("Programa encerrado.")
+      break
+
+    else:
+      print("Opção inválida. Por favor, tente novamente.")
+
+
+if __name__ == "__main__":
+  executar_programa()
