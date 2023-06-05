@@ -1,0 +1,57 @@
+from projeto import SistemaProdutos
+
+
+def test_adicionar_produto():
+    sistema = SistemaProdutos()
+    sistema.adicionar_produto("Aspirina", "Analgésico para dor de cabeça", 5.50)
+
+    assert len(sistema.produtos) == 1
+    assert sistema.produtos[0].nome == "Aspirina"
+    assert sistema.produtos[0].descricao == "Analgésico para dor de cabeça"
+    assert sistema.produtos[0].preco == 5.50
+
+
+def test_deletar_produto():
+    sistema = SistemaProdutos()
+    sistema.adicionar_produto("Aspirina", "Analgésico para dor de cabeça", 5.50)
+
+    assert len(sistema.produtos) == 1
+
+    sistema.deletar_produto("Aspirina")
+    assert len(sistema.produtos) == 0
+
+
+def test_fazer_update_produto():
+    sistema = SistemaProdutos()
+    sistema.adicionar_produto("Aspirina", "Analgésico para dor de cabeça", 5.50)
+
+    assert sistema.produtos[0].nome == "Aspirina"
+    assert sistema.produtos[0].descricao == "Analgésico para dor de cabeça"
+    assert sistema.produtos[0].preco == 5.50
+
+    sistema.fazer_update_produto("Aspirina", "Analgésico para dor de cabeça e febre", 6.00)
+
+    assert sistema.produtos[0].nome == "Aspirina"
+    assert sistema.produtos[0].descricao == "Analgésico para dor de cabeça e febre"
+    assert sistema.produtos[0].preco == 6.00
+
+
+def test_listar_produtos():
+    sistema = SistemaProdutos()
+    sistema.adicionar_produto("Aspirina", "Analgésico para dor de cabeça", 5.50)
+    sistema.adicionar_produto("Paracetamol", "Analgésico e antitérmico", 3.75)
+
+    assert len(sistema.produtos) == 2
+
+    sistema.listar_produtos()
+
+
+def test_consultar_produto():
+    sistema = SistemaProdutos()
+    sistema.adicionar_produto("Aspirina", "Analgésico para dor de cabeça", 5.50)
+
+    produto = sistema.consultar_produto("Aspirina")
+
+    assert produto.nome == "Aspirina"
+    assert produto.descricao == "Analgésico para dor de cabeça"
+    assert produto.preco == 5.50
